@@ -3,7 +3,7 @@ name: Publish to NPM
 on:
   push:
     tags:
-      - "v*" # 当推送版本标签时触发
+      - "v*"
 
 permissions:
   contents: write
@@ -20,7 +20,6 @@ jobs:
         with:
           node-version: "18"
           registry-url: "https://registry.npmjs.org/"
-          scope: "@cicd-demo"
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
@@ -33,10 +32,16 @@ jobs:
       - name: Build
         run: pnpm build
 
-      - name: Publish to NPM
+      - name: Setup npm auth
         run: |
-          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
-          pnpm publish --no-git-checks --access public
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> .npmrc
+          echo "registry=https://registry.npmjs.org/" >> .npmrc
+          echo "always-auth=true" >> .npmrc
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish to NPM
+        run: pnpm -r publish --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
