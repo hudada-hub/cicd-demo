@@ -1,3 +1,7 @@
+git push origin main
+git tag v1.0.1
+git push origin v1.0.1
+
 # CICD Demo
 
 这是一个使用 pnpm workspace 和 GitHub Actions 的 CI/CD 示例项目。
