@@ -1,5 +1,5 @@
 {
-  "name": "cicd-demo",
+  "name": "@hudada/cicd-demo",
   "version": "1.0.1",
   "scripts": {
     "build": "turbo run build",

@@ -1,6 +1,6 @@
 {
-  "name": "@cicd-demo/web",
-  "version": "0.0.0",
+  "name": "@hudada/web",
+  "version": "1.0.1",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",

@@ -1,5 +1,5 @@
 {
-  "name": "@cicd-demo/ui",
+  "name": "@hudada/ui",
   "version": "1.0.1",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
