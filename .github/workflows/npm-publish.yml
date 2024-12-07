@@ -15,7 +15,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "18"
-          registry-url: "https://registry.npmjs.org"
+          registry-url: "https://registry.npmjs.org/"
+          scope: "@cicd-demo"
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
@@ -29,9 +30,12 @@ jobs:
         run: pnpm build
 
       - name: Publish to NPM
-        run: pnpm publish --no-git-checks --access public
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+          pnpm publish --no-git-checks --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Create Release
         uses: actions/create-release@v1
