@@ -1,0 +1,36 @@
+name: Deploy to Production
+
+on:
+  push:
+    tags:
+      - "v*" # 当推送版本标签时触发
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy to Production
+        uses: some-deploy-action@v1
+        with:
+          token: ${{ secrets.DEPLOY_TOKEN }}
+          app-id: ${{ secrets.APP_ID }}
+
+      - name: Send Notification
+        uses: some-slack-action@v1
+        if: always()
+        with:
+          status: ${{ job.status }}
+          webhook: ${{ secrets.SLACK_WEBHOOK }}
