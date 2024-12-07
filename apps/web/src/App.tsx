@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button } from "@cicd-demo/ui";
+import { Button } from "@hudada/ui";
 
 export function App() {
   const [count, setCount] = useState(0);

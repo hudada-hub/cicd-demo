@@ -10,7 +10,7 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@cicd-demo/ui": "workspace:*",
+    "@hudada/ui": "workspace:*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
